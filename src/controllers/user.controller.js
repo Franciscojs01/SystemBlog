@@ -1,4 +1,4 @@
-import UserService from "../services/user.service.js";
+import UserService from '../services/user.service.js';
 
 class UserController {
   static async create(req, res) {
@@ -13,13 +13,13 @@ class UserController {
 
       if (error.message.includes('Email ou nome de usuário já está em uso')) {
         return res.status(400).json({
-          message: error.message
+          message: error.message,
         });
       }
 
       return res.status(500).json({
         message: 'Falha interna do servidor ao criar o usuário.',
-        error: error.message
+        error: error.message,
       });
     }
   }
@@ -33,7 +33,7 @@ class UserController {
       console.error('Erro ao buscar usuários: ', error.message);
       return res.status(500).json({
         message: 'Falha interna do servidor',
-        error: error.message
+        error: error.message,
       });
     }
   }
@@ -49,19 +49,18 @@ class UserController {
       console.error('Erro ao buscar usuário: ', error.message);
 
       if (error.message.includes('Usuário não encontrado')) {
-        return res.status(400).json({message: error.message});
+        return res.status(400).json({ message: error.message });
       }
 
       if (error.name == 'CastError') {
-        return res.status(400).json({message: 'ID de usuário inváll'});
+        return res.status(400).json({ message: 'ID de usuário inváll' });
       }
 
       return res.status(500).json({
         message: 'Falha interna do servidor',
-        error: error.message
+        error: error.message,
       });
     }
-
   }
 
   static async update(req, res) {
@@ -83,13 +82,16 @@ class UserController {
         return res.status(400).json({ message: 'ID de usuário inválido.' });
       }
 
-      if (error.name === 'ValidationError' || error.message.includes('está em uso')) {
+      if (
+        error.name === 'ValidationError' ||
+        error.message.includes('está em uso')
+      ) {
         return res.status(400).json({ message: error.message });
       }
 
       return res.status(500).json({
         message: 'Falha interna do servidor ao atualizar o usuário.',
-        error: error.message
+        error: error.message,
       });
     }
   }
@@ -101,7 +103,7 @@ class UserController {
 
       if (Object.keys(updateData).length === 0) {
         return res.status(400).json({
-          message: 'Nenhum dado fornecido para atualização parcial.'
+          message: 'Nenhum dado fornecido para atualização parcial.',
         });
       }
 
@@ -119,13 +121,17 @@ class UserController {
         return res.status(400).json({ message: 'ID de usuário inválido.' });
       }
 
-      if (error.name === 'ValidationError' || (error.code && error.code === 11000)) {
+      if (
+        error.name === 'ValidationError' ||
+        (error.code && error.code === 11000)
+      ) {
         return res.status(400).json({ message: error.message });
       }
 
       return res.status(500).json({
-        message: 'Falha interna do servidor ao atualizar parcialmente o usuário.',
-        error: error.message
+        message:
+          'Falha interna do servidor ao atualizar parcialmente o usuário.',
+        error: error.message,
       });
     }
   }
@@ -137,10 +143,9 @@ class UserController {
       const deletedUser = await UserService.delete(id);
 
       return res.status(200).json({
-        message: "Usuário deletado com sucesso.",
-        deletedUser: deletedUser
+        message: 'Usuário deletado com sucesso.',
+        deletedUser: deletedUser,
       });
-
     } catch (error) {
       console.error('Erro ao deletar usuário:', error.message);
 
@@ -154,11 +159,10 @@ class UserController {
 
       return res.status(500).json({
         message: 'Falha interna do servidor ao deletar o usuário.',
-        error: error.message
+        error: error.message,
       });
     }
   }
-
 }
 
 export default UserController;

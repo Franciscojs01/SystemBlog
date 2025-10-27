@@ -1,7 +1,7 @@
-import {User} from '../models/User.js';
+import { User } from '../models/User.js';
 
 class UserRepository {
-  async create(userData)  {
+  async create(userData) {
     const newUser = await User.create(userData);
 
     return newUser;
@@ -18,11 +18,10 @@ class UserRepository {
   }
 
   async update(id, updateData) {
-    const updateUser = await User.findByIdAndUpdate(
-      id,
-      updateData,
-      {new: true, runValidators: true}
-    );
+    const updateUser = await User.findByIdAndUpdate(id, updateData, {
+      new: true,
+      runValidators: true,
+    });
 
     return updateUser;
   }
