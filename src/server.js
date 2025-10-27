@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import 'dotenv/config';
+import userRoutes from './routes/user.routes.js';
 
 import { connectDB } from './config/db.js';
 
@@ -15,6 +16,8 @@ app
   .set('views', path.join(__dirname, 'views'))
   .use(express.static(path.join(__dirname, '..', 'public')))
   .use(express.json());
+
+app.use('/users', userRoutes);
 
 await connectDB();
 app.listen(3000);
