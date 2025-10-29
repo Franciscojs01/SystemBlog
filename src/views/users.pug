@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/style.css")
+    title Lista de Usuários
+  body
+    .container
+      if users.length
+        table.users-table
+          thead
+            tr
+              th Nome
+              th Email
+              th Cargo
+          tbody
+            each user in users
+              tr
+                td #{user.name}
+                td #{user.email}
+                td #{user.role}
+      else
+        p Nenhum usuário cadastrado

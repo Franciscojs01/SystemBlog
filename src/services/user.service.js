@@ -1,10 +1,9 @@
 import UserRepository from '../repositories/user.repository.js';
-import UserResponseDTO from "../dtos/user.dto.js";
-import userRepository from "../repositories/user.repository.js";
+import UserResponseDTO from '../dtos/user.dto.js';
+import userRepository from '../repositories/user.repository.js';
 
 class UserService {
   static async create(createUserDto) {
-
     const newUserFromDb = await UserRepository.create(createUserDto);
 
     return new UserResponseDTO(newUserFromDb);
@@ -41,8 +40,6 @@ class UserService {
 
     return deletedUser;
   }
-
-
 }
 
 export default UserService;

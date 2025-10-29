@@ -1,0 +1,20 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/style.css")
+    title Posts
+  body
+    .container
+      h1 Lista de Posts
+      if posts.length
+        each post in posts
+          .post-card
+            .post-header
+              h2 #{post.title}
+              span.author #{post.author} • #{new Date(post.createdAt).toLocaleDateString()}
+            .post-body
+              p #{post.content}
+      else
+        p Nenhum post publicado
