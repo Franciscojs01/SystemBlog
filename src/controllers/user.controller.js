@@ -68,7 +68,7 @@ class UserController {
       const { id } = req.params;
       const updateData = req.body;
 
-      const updatedUser = await UserService.updateUserInfo(id, updateData);
+      const updatedUser = await UserService.updateUser(id, updateData);
 
       return res.status(200).json(updatedUser);
     } catch (error) {
@@ -107,7 +107,7 @@ class UserController {
         });
       }
 
-      const updatedUser = await UserService.updateUserInfo(id, updateData);
+      const updatedUser = await UserService.updateUser(id, updateData);
 
       return res.status(200).json(updatedUser);
     } catch (error) {

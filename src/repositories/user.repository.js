@@ -2,34 +2,30 @@ import { User } from '../models/User.js';
 
 class UserRepository {
   async create(userData) {
-    const newUser = await User.create(userData);
+    return User.create(userData);
+  }
 
-    return newUser;
+  async findByLogin(login) {
+    return await User.findOne({ login });
   }
 
   async findAll() {
-    const users = await User.find();
-    return users;
+    return await User.find();
   }
 
   async findById(id) {
-    const user = await User.findById(id);
-    return user;
+    return await User.findById(id);
   }
 
   async update(id, updateData) {
-    const updateUser = await User.findByIdAndUpdate(id, updateData, {
+    return await User.findByIdAndUpdate(id, updateData, {
       new: true,
       runValidators: true,
     });
-
-    return updateUser;
   }
 
   async delete(id) {
-    const result = await User.findByIdAndDelete(id);
-
-    return result;
+    return await User.findByIdAndDelete(id);
   }
 }
 

@@ -1,6 +1,5 @@
 import UserRepository from '../repositories/user.repository.js';
 import UserResponseDTO from '../dtos/user.dto.js';
-import userRepository from '../repositories/user.repository.js';
 
 class UserService {
   static async create(createUserDto) {
@@ -10,11 +9,11 @@ class UserService {
   }
 
   static async getAllUsers() {
-    return await userRepository.findAll();
+    return await UserRepository.findAll();
   }
 
   static async getById(id) {
-    const user = await userRepository.findById(id);
+    const user = await UserRepository.findById(id);
     if (!user) {
       throw new Error('Usuário não encontrado');
     }
@@ -22,8 +21,8 @@ class UserService {
     return new UserResponseDTO(user);
   }
 
-  static async updateUserInfo(userId, updateData) {
-    const updateUser = await userRepository.update(userId, updateData);
+  static async updateUser(userId, updateData) {
+    const updateUser = await UserRepository.update(userId, updateData);
 
     if (!updateUser) {
       throw new Error('Usuário não encontrado');
@@ -33,7 +32,7 @@ class UserService {
   }
 
   static async delete(id) {
-    const deletedUser = await userRepository.delete(id);
+    const deletedUser = await UserRepository.delete(id);
     if (!deletedUser) {
       throw new Error('Usuário não encontrado para exclusão');
     }
