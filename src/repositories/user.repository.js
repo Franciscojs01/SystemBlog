@@ -9,23 +9,21 @@ class UserRepository {
 
   async findAll() {
     const users = await User.find();
-
     return users;
   }
 
   async findById(id) {
     const user = await User.findById(id);
-
     return user;
   }
 
-  async update(id, userData) {
-    const updatedUser = await User.findByIdAndUpdate(id, userData, {
+  async update(id, updateData) {
+    const updateUser = await User.findByIdAndUpdate(id, updateData, {
       new: true,
       runValidators: true,
     });
 
-    return updatedUser;
+    return updateUser;
   }
 
   async delete(id) {

@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-let db;
 let isConnected = false;
 
 async function connectDB() {
@@ -15,7 +14,6 @@ async function connectDB() {
       serverSelectionTimeoutMS: 5000,
     });
 
-    db = connection;
     isConnected = true;
     console.log(`MongoDB conectado!`);
 
@@ -26,6 +24,4 @@ async function connectDB() {
   }
 }
 
-const getDB = () => db;
-
-export { connectDB, getDB };
+export { connectDB };

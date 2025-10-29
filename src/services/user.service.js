@@ -1,38 +1,41 @@
 import UserRepository from '../repositories/user.repository.js';
 import UserResponseDTO from '../dtos/user.dto.js';
+import userRepository from '../repositories/user.repository.js';
 
 class UserService {
-  static async create(userData) {
-    const newUser = await UserRepository.create(userData);
-    return new UserResponseDTO(newUser);
+  static async create(createUserDto) {
+    const newUserFromDb = await UserRepository.create(createUserDto);
+
+    return new UserResponseDTO(newUserFromDb);
   }
 
   static async getAllUsers() {
-    return await UserRepository.findAll();
+    return await userRepository.findAll();
   }
 
   static async getById(id) {
-    const user = await UserRepository.findById(id);
+    const user = await userRepository.findById(id);
     if (!user) {
-      throw new Error('Usuário não encontrado.');
+      throw new Error('Usuário não encontrado');
     }
 
     return new UserResponseDTO(user);
   }
 
-  static async updateUserInfo(id, userData) {
-    const updatedUser = await UserRepository.update(id, userData);
-    if (!updatedUser) {
-      throw new Error('Usuário não encontrado para atualização.');
+  static async updateUserInfo(userId, updateData) {
+    const updateUser = await userRepository.update(userId, updateData);
+
+    if (!updateUser) {
+      throw new Error('Usuário não encontrado');
     }
 
-    return new UserResponseDTO(updatedUser);
+    return new UserResponseDTO(updateUser);
   }
 
   static async delete(id) {
-    const deletedUser = await UserRepository.delete(id);
+    const deletedUser = await userRepository.delete(id);
     if (!deletedUser) {
-      throw new Error('Usuário não encontrado para exclusão.');
+      throw new Error('Usuário não encontrado para exclusão');
     }
 
     return deletedUser;
