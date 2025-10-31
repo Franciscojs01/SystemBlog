@@ -1,10 +1,10 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import 'dotenv/config';
-
-import { connectDB } from './config/db.js';
-import userRoutes from './routes/user.routes.js';
+import usersRoutes from './routes/user.routes.js';
+import postsRoutes from './routes/post.routes.js';
+import errorHandler from './middlewares/error.middleware.js';
+import { connectDB } from './config/database.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,7 +17,7 @@ app
   .use(express.static(path.join(__dirname, '..', 'public')))
   .use(express.json());
 
-app.use('/users', userRoutes);
+app.use('/users', usersRoutes).use('/posts', postsRoutes).use(errorHandler);
 
 await connectDB();
 app.listen(3000);
