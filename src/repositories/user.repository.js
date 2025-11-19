@@ -5,8 +5,8 @@ class UserRepository {
     return User.create(userData);
   }
 
-  async findByLogin(login) {
-    return await User.findOne({ login });
+  async findByEmail(email) {
+    return await User.findOne({ email });
   }
 
   async findAll() {
