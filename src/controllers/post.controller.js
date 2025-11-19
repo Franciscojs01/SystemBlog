@@ -15,7 +15,7 @@ class PostController {
     try {
       const posts = await PostService.getAllPosts();
 
-      return res.status(200).json(posts);
+      return res.status(200).render('posts', { posts });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }

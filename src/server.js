@@ -5,6 +5,7 @@ import 'dotenv/config';
 
 import { connectDB } from './config/db.js';
 import userRoutes from './routes/user.routes.js';
+import postRoutes from './routes/post.routes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,7 +18,7 @@ app
   .use(express.static(path.join(__dirname, '..', 'public')))
   .use(express.json());
 
-app.use('/users', userRoutes);
+app.use('/users', userRoutes).use('/posts', postRoutes);
 
 await connectDB();
 app.listen(3000);
