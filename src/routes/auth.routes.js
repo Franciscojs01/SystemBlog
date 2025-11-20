@@ -1,6 +1,6 @@
 import { Router } from 'express';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 import userRepository from '../repositories/user.repository.js';
 
 const router = Router();

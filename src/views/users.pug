@@ -3,22 +3,35 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    link(rel="stylesheet", href="/style.css")
-    title Lista de Usuários
+    link(rel="stylesheet", href="/styles/global.css")
+    link(rel="stylesheet", href="/styles/users.css")
+    title Users
   body
+    header
+      h1 /users
     .container
-      if users.length
-        table.users-table
-          thead
-            tr
-              th Nome
-              th Email
-              th Cargo
-          tbody
+      .main
+        h2.title Todos os usuários
+          span #{users.length}
+        .table
+          .table-header
+            .col.name Nome do usuário/E-mail
+            .col.access Cargo
+            .col.last Atualizado em
+            .col.added Adicionado em
+          if users.length
             each user in users
-              tr
-                td #{user.name}
-                td #{user.email}
-                td #{user.role}
-      else
-        p Nenhum usuário cadastrado
+              .row
+                .col.name
+                  img.avatar(src="https://i.pravatar.cc/40?img=6")
+                  .info
+                    .username #{user.name}
+                    .email #{user.email}
+
+                .col.access
+                  span(class=`badge ${user.role}`)= user.role
+
+                .col.last #{new Intl.DateTimeFormat('en-GB', {day: '2-digit',month: 'short',year: 'numeric',}).format(new Date(user.updatedAt))}
+                .col.added #{new Intl.DateTimeFormat('en-GB', {day: '2-digit',month: 'short',year: 'numeric',}).format(new Date(user.createdAt))}
+          else
+            p Nenhum usuário cadastrado

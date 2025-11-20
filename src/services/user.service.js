@@ -1,16 +1,15 @@
 import UserRepository from '../repositories/user.repository.js';
 import UserResponseDTO from '../dtos/user.dto.js';
-import bcrypt from 'bcryptjs'; // ⬅️ IMPORTAR BCryptjs
+import bcrypt from 'bcrypt';
 
 class UserService {
   static async create(createUserDto) {
-    // 1. Definir a role padrão se não for fornecida e criptografar a senha
     const defaultRole = 'viewer';
     const password = createUserDto.password;
 
     if (password) {
       const salt = await bcrypt.genSalt(10);
-      createUserDto.password = await bcrypt.hash(password, salt); // ⬅️ HASH DA SENHA
+      createUserDto.password = await bcrypt.hash(password, salt);
     }
 
     if (!createUserDto.role) {
@@ -39,7 +38,7 @@ class UserService {
     // 2. Criptografar a senha se ela estiver sendo atualizada
     if (updateData.password) {
       const salt = await bcrypt.genSalt(10);
-      updateData.password = await bcrypt.hash(updateData.password, salt); // ⬅️ HASH DA NOVA SENHA
+      updateData.password = await bcrypt.hash(updateData.password, salt);
     }
 
     const updatedUser = await UserRepository.update(userId, updateData);

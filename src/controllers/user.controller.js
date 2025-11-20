@@ -28,7 +28,7 @@ class UserController {
     try {
       const users = await UserService.getAllUsers();
 
-      return res.status(200).json(users);
+      return res.status(200).render('users', { users });
     } catch (error) {
       console.error('Erro ao buscar usuários: ', error.message);
       return res.status(500).json({

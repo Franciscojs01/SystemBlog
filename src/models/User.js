@@ -14,6 +14,6 @@ const definition = {
   role: { type: String, required: true },
 };
 
-const userSchema = new mongoose.Schema(definition);
+const userSchema = new mongoose.Schema(definition, { timestamps: true });
 
 export const User = mongoose.models.User || mongoose.model('User', userSchema);
