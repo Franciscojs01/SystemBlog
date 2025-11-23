@@ -7,7 +7,9 @@ const router = Router();
 
 const JWT_SECRET = 'sua-chave-super-secreta-e-longa-12345';
 
-router.post('/login', async ({ email, password }, res) => {
+router.post('/login', async (req, res) => {
+  const {email, password} = req.body;
+
   if (!email || !password) {
     return res
       .status(400)
@@ -21,15 +23,12 @@ router.post('/login', async ({ email, password }, res) => {
       return res.status(401).json({ mensagem: 'Credenciais inválidas.' });
     }
 
-    // 2. Comparar a senha fornecida com o hash armazenado
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    // Se a senha for inválida, retorne erro
     if (!isPasswordValid) {
       return res.status(401).json({ mensagem: 'Credenciais inválidas.' });
     }
 
-    // 3. Se as credenciais são válidas, gerar o token
     const payload = {
       id: user.id,
       email: user.email,

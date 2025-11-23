@@ -7,7 +7,7 @@ class UserController {
 
       const newUser = await UserService.create(createUserDto);
 
-      return res.status(201).json(newUser);
+      return res.status(201).json({message: "Usuário criado com sucesso!", newUser});
     } catch (error) {
       console.error('Erro ao criar usuário: ', error.message);
 
@@ -52,7 +52,7 @@ class UserController {
         return res.status(400).json({ message: error.message });
       }
 
-      if (error.name == 'CastError') {
+      if (error.name === 'CastError') {
         return res.status(400).json({ message: 'ID de usuário inváll' });
       }
 
@@ -107,7 +107,7 @@ class UserController {
         });
       }
 
-      const updatedUser = await UserService.updateUser(id, updateData);
+      const updatedUser = await UserService.patch(id, updateData);
 
       return res.status(200).json(updatedUser);
     } catch (error) {

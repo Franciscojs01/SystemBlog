@@ -4,16 +4,11 @@ import bcrypt from 'bcrypt';
 
 class UserService {
   static async create(createUserDto) {
-    const defaultRole = 'viewer';
     const password = createUserDto.password;
 
     if (password) {
       const salt = await bcrypt.genSalt(10);
       createUserDto.password = await bcrypt.hash(password, salt);
-    }
-
-    if (!createUserDto.role) {
-      createUserDto.role = defaultRole;
     }
 
     const newUserFromDb = await UserRepository.create(createUserDto);
@@ -35,7 +30,21 @@ class UserService {
   }
 
   static async updateUser(userId, updateData) {
-    // 2. Criptografar a senha se ela estiver sendo atualizada
+    if (updateData.password) {
+      const salt = await bcrypt.genSalt(10);
+      updateData.password = await bcrypt.hash(updateData.password, salt);
+    }
+
+    const updatedUser = await UserRepository.update(userId, updateData);
+
+    if (!updatedUser) {
+      throw new Error('Usuário não encontrado');
+    }
+
+    return new UserResponseDTO(updatedUser);
+  }
+
+  static async patch(userId, updateData) {
     if (updateData.password) {
       const salt = await bcrypt.genSalt(10);
       updateData.password = await bcrypt.hash(updateData.password, salt);
