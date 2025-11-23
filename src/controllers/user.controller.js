@@ -3,9 +3,13 @@ import UserService from '../services/user.service.js';
 class UserController {
   static async create({ body }, res) {
     try {
-      const newUser = await UserService.create(body);
+      const createUserDto = req.body;
 
-      return res.status(201).json(newUser);
+      const newUser = await UserService.create(createUserDto);
+
+      return res
+        .status(201)
+        .json({ message: 'Usuário criado com sucesso!', newUser });
     } catch (error) {
       if (error.message.includes('Este e-mail já está em uso.')) {
         return res.status(400).json({ message: error.message });
@@ -41,9 +45,14 @@ class UserController {
         return res.status(400).json({ message: error.message });
       }
 
-      return res
-        .status(500)
-        .json({ message: 'Falha interna do servidor', error: error.message });
+      if (error.name === 'CastError') {
+        return res.status(400).json({ message: 'ID de usuário inváll' });
+      }
+
+      return res.status(500).json({
+        message: 'Falha interna do servidor',
+        error: error.message,
+      });
     }
   }
 
@@ -83,7 +92,7 @@ class UserController {
           .json({ message: 'Nenhum dado fornecido para atualização parcial.' });
       }
 
-      const updatedUser = await UserService.updateUser(params.id, body);
+      const updatedUser = await UserService.patch(id, updateData);
 
       return res.status(200).json(updatedUser);
     } catch (error) {
