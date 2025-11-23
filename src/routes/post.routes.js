@@ -1,18 +1,29 @@
 import { Router } from 'express';
 import PostController from '../controllers/post.controller.js';
+import {
+  postFullRules,
+  postIdRules,
+  postPatchRules,
+} from '../validators/post.validators.js';
 
 const router = Router();
 
-router.post('/', PostController.create);
+// POST /posts → Cadastrar post (manager ou author)
+router.post('/', postFullRules, PostController.create);
 
+// GET /posts → Listar todos os posts (qualquer cargo)
 router.get('/', PostController.findAll);
 
-router.get('/:id', PostController.findById);
+// GET /posts/:id → Listar post pelo ID (qualquer cargo)
+router.get('/:id', postIdRules, PostController.findById);
 
-router.put('/:id', PostController.update);
+// PUT /posts/:id → Editar completamente o post (manager ou author)
+router.put('/:id', postFullRules, PostController.update);
 
-router.patch('/:id', PostController.update);
+// PATCH /posts/:id → Editar parcialmente o post (manager ou author)
+router.patch('/:id', postPatchRules, PostController.update);
 
-router.delete('/:id', PostController.delete);
+// DELETE /posts/:id → Apagar o post (manager ou author)
+router.delete('/:id', postIdRules, PostController.delete);
 
 export default router;
