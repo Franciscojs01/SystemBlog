@@ -9,8 +9,7 @@ async function connectDB() {
   }
 
   try {
-    const { connection } = await mongoose.connect(
-      "mongodb+srv://arthurpinheiro703_db_user:OCufxFWC9a4OONQQ@backend-blog.dg27q98.mongodb.net/?appName=backend-blog", {
+    const { connection } = await mongoose.connect(process.env.MONGO_URI, {
       dbName: 'blog',
       serverSelectionTimeoutMS: 5000,
     });
