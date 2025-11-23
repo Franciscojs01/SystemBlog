@@ -7,6 +7,7 @@ import { connectDB } from './config/db.js';
 import userRoutes from './routes/user.routes.js';
 import postRoutes from './routes/post.routes.js';
 import authRoutes from './routes/auth.routes.js';
+// import errorHandler from './middlewares/error.middleware.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,6 +24,7 @@ app
   .use('/auth', authRoutes)
   .use('/users', userRoutes)
   .use('/posts', postRoutes)
+  // .use(errorHandler)
   .use((req, res, next) => {
     res.status(404).json({ messagem: 'A rota solicitada não existe.' });
   });
