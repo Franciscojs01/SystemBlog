@@ -1,39 +1,35 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = 'sua-chave-super-secreta-e-longa-12345';
+async function authMiddleware(req, res, next) {
+  const { authorization } = req.headers;
 
-const authMiddleware = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    return res.status(401).json({
-      mensagem: "Acesso negado. Token não fornecido.",
-      details: "O cabeçalho Authorization está faltando."
-    });
+  if (!authorization) {
+    return res
+      .status(401)
+      .json({ mensagem: 'Acesso negado. Token não fornecido.' });
   }
 
-  const parts = authHeader.split(' ');
+  const parts = authorization.split(' ');
 
   if (parts.length !== 2 || parts[0] !== 'Bearer') {
-    return res.status(401).json({
-      mensagem: "Formato de token inválido.",
-      details: "O formato esperado é 'Bearer <token>'."
-    });
+    return res.status(401).json({ mensagem: 'Formato de token inválido.' });
   }
 
-  const token = parts[1];
+  const [_, token] = parts;
 
   try {
-    req.user = jwt.verify(token, JWT_SECRET);
+    req.user = jwt.verify(token, process.env.JWT_SECRET);
 
     next();
   } catch (error) {
     if (error.name === 'TokenExpiredError') {
-      return res.status(401).json({ mensagem: "Token expirado. Faça login novamente." });
+      return res
+        .status(401)
+        .json({ mensagem: 'Token expirado. Faça o login novamente.' });
     }
 
-    return res.status(401).json({ mensagem: "Token inválido ou corrompido." });
+    return res.status(401).json({ mensagem: 'Token inválido ou corrompido.' });
   }
-};
+}
 
 export default authMiddleware;

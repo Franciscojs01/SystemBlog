@@ -1,19 +1,21 @@
 import mongoose from 'mongoose';
 
-/**
- * author: ObjectId;
- * title: String;
- * content: String;
- * thumbnail: String (URL);
- * tags: String[];
- */
-
 const definition = {
-  author: { type: String, required: true },
-  title: { type: String, required: true },
-  content: { type: String, required: true },
-  thumbnail: { type: String, required: true },
-  tags: { type: [String], required: true },
+  title: String,
+  content: String,
+  thumbnail: String,
+  tags: [String],
+  authorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+    immutable: true,
+  },
+  authorName: {
+    type: String,
+    required: true,
+    immutable: true,
+  },
 };
 
 const postSchema = new mongoose.Schema(definition, { timestamps: true });

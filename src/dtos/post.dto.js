@@ -6,12 +6,15 @@ class PostResponseDTO {
       );
     }
 
-    this.id = post._id ? post._id.toString() : null;
-    this.author = post.author;
+    this.id = post._id;
     this.title = post.title;
     this.content = post.content;
     this.thumbnail = post.thumbnail;
     this.tags = post.tags;
+    this.authorId = post.authorId;
+    this.authorName = post.authorName;
+    this.createdAt = post.createdAt;
+    this.updatedAt = post.updatedAt;
   }
 }
 

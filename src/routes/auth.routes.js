@@ -8,7 +8,7 @@ const router = Router();
 const JWT_SECRET = 'sua-chave-super-secreta-e-longa-12345';
 
 router.post('/login', async (req, res) => {
-  const {email, password} = req.body;
+  const { email, password } = req.body;
 
   if (!email || !password) {
     return res
@@ -31,11 +31,13 @@ router.post('/login', async (req, res) => {
 
     const payload = {
       id: user.id,
+      name: user.name,
       email: user.email,
       role: user.role,
     };
 
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+
     return res.status(200).json({ token: token });
   } catch (error) {
     console.error('Erro interno do servidor ao tentar autenticar: ', error);

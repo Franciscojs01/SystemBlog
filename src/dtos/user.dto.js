@@ -6,10 +6,12 @@ class UserResponseDTO {
       );
     }
 
-    this.id = user._id ? user._id.toString() : null;
+    this.id = user._id;
     this.name = user.name;
     this.email = user.email;
     this.role = user.role;
+    this.createdAt = user.createdAt;
+    this.updatedAt = user.updatedAt;
   }
 }
 

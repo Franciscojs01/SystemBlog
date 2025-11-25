@@ -23,7 +23,7 @@ class UserService {
   static async getById(id) {
     const user = await UserRepository.findById(id);
     if (!user) {
-      throw new Error('Usuário não encontrado');
+      throw new Error('Usuário não encontrado.');
     }
 
     return new UserResponseDTO(user);
@@ -53,7 +53,7 @@ class UserService {
     const updatedUser = await UserRepository.update(userId, updateData);
 
     if (!updatedUser) {
-      throw new Error('Usuário não encontrado');
+      throw new Error('Usuário não encontrado.');
     }
 
     return new UserResponseDTO(updatedUser);
@@ -62,7 +62,7 @@ class UserService {
   static async delete(id) {
     const deletedUser = await UserRepository.delete(id);
     if (!deletedUser) {
-      throw new Error('Usuário não encontrado para exclusão');
+      throw new Error('Usuário não encontrado para exclusão.');
     }
 
     return deletedUser;

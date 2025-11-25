@@ -1,9 +1,15 @@
 import PostService from '../services/post.service.js';
 
 class PostController {
-  static async create({ body }, res) {
+  static async create({ body, user }, res) {
     try {
-      const newPost = await PostService.create(body);
+      const postData = {
+        ...body,
+        authorId: user.id,
+        authorName: user.name,
+      };
+
+      const newPost = await PostService.create(postData);
 
       return res.status(201).json(newPost);
     } catch (error) {
