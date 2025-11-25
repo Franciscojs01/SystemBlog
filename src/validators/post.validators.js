@@ -2,12 +2,6 @@ import { check, param } from 'express-validator';
 import { validationErrorHandler } from './user.validators.js';
 
 export const postFullRules = [
-  // check('author')
-  //   .notEmpty()
-  //   .withMessage('O nome é obrigatório.')
-  //   .isMongoId()
-  //   .withMessage('O ID do autor não tem formato válido.'),
-
   check('title')
     .notEmpty()
     .withMessage('O título é obrigatório.')

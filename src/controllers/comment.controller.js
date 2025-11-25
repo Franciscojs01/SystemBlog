@@ -1,9 +1,13 @@
 import CommentService from '../services/comment.service.js';
 
 class CommentController {
-  static async create(req, res) {
+  static async create({body, user, params}, res) {
     try {
-      const createCommentDto = req.body;
+      const createCommentDto = {
+        ...body,
+        userId: user.id,
+        postId: params.id,
+      };
 
       const newComment = await CommentService.create(createCommentDto);
 
@@ -44,7 +48,7 @@ class CommentController {
 
   static async findAll(req, res) {
     try {
-      const comments = await CommentService.findAll();
+      const comments = await CommentService.getAllComments();
       return res.status(200).json('comments', {comments});
     } catch (error) {
       console.error('Erro ao buscar comentários: ', error.message);

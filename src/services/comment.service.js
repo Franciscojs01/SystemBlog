@@ -17,7 +17,7 @@ class CommentService {
     return new UserResponseDTO(comment);
   }
 
-  static async findAll() {
+  static async getAllComments() {
     return await CommentRepository.findAll();
   }
 

@@ -3,15 +3,39 @@ import { Router } from 'express';
 import CommentController from '../controllers/comment.controller.js';
 import authMiddleware from '../middlewares/auth.middleware.js';
 import roleMiddleware from '../middlewares/role.middleware.js';
+import {
+  commentFullRules,
+  commentIdRules
+} from '../validators/comment.validators.js';
 
 const router = new Router();
 
-router.post('/', authMiddleware, roleMiddleware(['manager', 'author']), CommentController.create);
+router.post('/:id',
+  authMiddleware,
+  roleMiddleware(['manager', 'author']),
+  commentFullRules,
+  CommentController.create
+);
 
-router.get('/', authMiddleware, roleMiddleware(['manager', 'author', 'viewer']), CommentController.findAll)
+router.get('/',
+  authMiddleware,
+  roleMiddleware(['manager', 'author', 'viewer']),
+  commentIdRules,
+  CommentController.findAll
+);
 
-router.get('/:id', authMiddleware, roleMiddleware(['manager', 'author', 'viewer']), CommentController.findByUser);
+router.get('/user/:id',
+  authMiddleware,
+  roleMiddleware(['manager', 'author', 'viewer']),
+  commentIdRules,
+  CommentController.findByUser
+);
 
-router.delete('/:id', authMiddleware, roleMiddleware(['manager', 'author']), CommentController.delete);
+router.delete('/:id',
+  authMiddleware,
+  roleMiddleware(['manager', 'author']),
+  commentIdRules,
+  CommentController.delete
+);
 
 export default router;
