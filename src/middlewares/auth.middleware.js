@@ -20,8 +20,6 @@ async function authMiddleware(req, res, next) {
   try {
     req.user = jwt.verify(token, process.env.JWT_SECRET);
 
-    console.log(req.user);
-
     next();
   } catch (error) {
     if (error.name === 'TokenExpiredError') {
