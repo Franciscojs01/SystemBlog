@@ -8,7 +8,6 @@ import userRoutes from './routes/user.routes.js';
 import postRoutes from './routes/post.routes.js';
 import authRoutes from './routes/auth.routes.js';
 
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -29,4 +28,4 @@ app
   });
 
 await connectDB();
-app.listen(3000);
+app.listen(process.env.PORT);

@@ -2,11 +2,11 @@ import { check, param } from 'express-validator';
 import { validationErrorHandler } from './user.validators.js';
 
 export const postFullRules = [
-  check('author')
-    .notEmpty()
-    .withMessage('O nome é obrigatório.')
-    .isMongoId()
-    .withMessage('O ID do autor não tem formato válido.'),
+  // check('author')
+  //   .notEmpty()
+  //   .withMessage('O nome é obrigatório.')
+  //   .isMongoId()
+  //   .withMessage('O ID do autor não tem formato válido.'),
 
   check('title')
     .notEmpty()
@@ -22,9 +22,9 @@ export const postFullRules = [
 
   check('thumbnail')
     .notEmpty()
-    .withMessage('O endereço da thumnail é obrigatório.')
-    .isBase64()
-    .withMessage('A thumbnail deve está no formato Base64.'),
+    .withMessage('O endereço da thumnail é obrigatório.'),
+  // .isBase64()
+  // .withMessage('A thumbnail deve está no formato Base64.'),
 
   check('tags')
     .notEmpty()

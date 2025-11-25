@@ -3,9 +3,7 @@ import UserService from '../services/user.service.js';
 class UserController {
   static async create({ body }, res) {
     try {
-      const createUserDto = req.body;
-
-      const newUser = await UserService.create(createUserDto);
+      const newUser = await UserService.create(body);
 
       return res
         .status(201)
@@ -26,7 +24,8 @@ class UserController {
     try {
       const users = await UserService.getAllUsers();
 
-      return res.status(200).render('users', { users });
+      return res.status(200).json(users);
+      // return res.status(200).render('users', { users });
     } catch (error) {
       return res.status(500).json({
         message: 'Falha interna do servidor',
