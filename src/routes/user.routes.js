@@ -14,7 +14,7 @@ router.get('/:id', authMiddleware, roleMiddleware(['manager']), UserController.f
 
 router.put('/:id', authMiddleware, roleMiddleware(['manager']), UserController.update);
 
-router.patch('/:id', authMiddleware, roleMiddleware(['manager', 'author', 'viewer'], UserController.patch));
+router.patch('/:id', authMiddleware, roleMiddleware(['manager', 'author', 'viewer']), UserController.patch);
 
 router.delete('/:id', authMiddleware, roleMiddleware(['manager']), UserController.delete);
 

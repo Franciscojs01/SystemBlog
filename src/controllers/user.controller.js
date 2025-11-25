@@ -53,7 +53,7 @@ class UserController {
       }
 
       if (error.name === 'CastError') {
-        return res.status(400).json({ message: 'ID de usuário inváll' });
+        return res.status(400).json({ message: 'ID de usuário inválido' });
       }
 
       return res.status(500).json({
