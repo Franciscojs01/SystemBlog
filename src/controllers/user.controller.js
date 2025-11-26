@@ -86,40 +86,21 @@ class UserController {
     }
   }
 
-  static async patch({ body, params }, res) {
+  static async patch(req, res) {
     try {
-      if (Object.keys(body).length === 0) {
-        return res
-          .status(400)
-          .json({ message: 'Nenhum dado fornecido para atualização parcial.' });
-      }
+      const userId = req.params.id;
 
-      const updatedUser = await UserService.patch(id, updateData);
+      const result = await UserService.patch(userId, req.body);
 
-      return res.status(200).json(updatedUser);
+      return res.status(200).json(result);
     } catch (error) {
-      if (error.message.includes('Usuário não encontrado')) {
-        return res.status(404).json({ message: error.message });
-      }
-
-      if (error.name === 'CastError') {
-        return res.status(400).json({ message: 'ID de usuário inválido.' });
-      }
-
-      if (
-        error.name === 'ValidationError' ||
-        (error.code && error.code === 11000)
-      ) {
-        return res.status(400).json({ message: error.message });
-      }
-
       return res.status(500).json({
-        message:
-          'Falha interna do servidor ao atualizar parcialmente o usuário.',
-        error: error.message,
+        message: 'Falha interna do servidor ao atualizar parcialmente o usuário.',
+        error: error.message
       });
     }
   }
+
 
   static async delete({ params }, res) {
     try {

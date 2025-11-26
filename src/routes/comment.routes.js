@@ -28,23 +28,6 @@ router.get(
   CommentController.findAll,
 );
 
-// Listar comentários do usuário logado
-// router.get(
-//   '/me',
-//   authMiddleware,
-//   roleMiddleware(['manager', 'author', 'viewer']),
-//   CommentController.findByLoggedUser,
-// );
-
-// Listar todos os comentários de um usuário específico a partir do id
-// router.get(
-//   '/u/:id',
-//   authMiddleware,
-//   roleMiddleware(['manager']),
-//   // commentEmailRules,
-//   CommentController.findByUserId,
-// );
-
 // Listar comentários de um post específico
 router.get(
   '/:id',

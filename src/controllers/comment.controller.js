@@ -37,64 +37,18 @@ class CommentController {
     }
   }
 
-  static async findByLoggedUser({ user }, res) {
-    try {
-      const comment = await CommentService.getByUserId(user.id);
-
-      return res.status(200).json(comment);
-    } catch (error) {
-      if (error.message.includes('Comentário não encontrado')) {
-        return res.status(400).json({ message: error.message });
-      }
-
-      if (error.email === 'CastError') {
-        return res
-          .status(400)
-          .json({ message: 'Não há nenhum comentário ligado a este usuário.' });
-      }
-
-      return res.status(500).json({
-        message: 'Falha interna do servidor!',
-        error: error.message,
-      });
-    }
-  }
-
-  static async findByUserId({ params }, res) {
-    try {
-      const comment = await CommentService.getByUserId(params.id);
-
-      return res.status(200).json(comment);
-    } catch (error) {
-      if (error.message.includes('Comentário não encontrado')) {
-        return res.status(400).json({ message: error.message });
-      }
-
-      if (error.email === 'CastError') {
-        return res
-          .status(400)
-          .json({ message: 'Não há nenhum comentário ligado a este e-mail.' });
-      }
-
-      return res.status(500).json({
-        message: 'Falha interna do servidor!',
-        error: error.message,
-      });
-    }
-  }
-
   static async findByPostId({ params }, res) {
     try {
-      const comment = await CommentService.getByPostId(params.id);
+      const comments = await CommentService.getByPostId(params.id);
 
-      return res.status(200).json(comment);
+      return res.status(200).json({ comments }); // agora retorna um array
     } catch (error) {
-      if (error.message.includes('Comentário não encontrado')) {
-        return res.status(400).json({ message: error.message });
+      if (error.name === 'CastError' || error.message.includes('CastError')) {
+        return res.status(400).json({ message: 'ID de post inválido.' });
       }
 
-      if (params.id === 'CastError') {
-        return res.status(400).json({ message: 'ID de comentário inválido.' });
+      if (error.message && error.message.includes('Comentário não encontrado')) {
+        return res.status(404).json({ message: error.message });
       }
 
       return res.status(500).json({
