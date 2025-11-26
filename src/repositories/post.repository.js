@@ -2,7 +2,7 @@ import { Post } from '../models/Post.js';
 
 class PostRepository {
   async create(postData) {
-    return await Post.create(postData);
+    return Post.create(postData);
   }
 
   async findAll() {
