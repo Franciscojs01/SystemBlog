@@ -12,15 +12,15 @@ html(lang="en")
     .container
       if posts.length
         each post in posts
-          .post
+          .post(onclick=`window.location='/posts/${post.id}'`)
             .post-header
               img(src="/images/1415537875.jpg", alt="chico")
             .post-body
-              span #{post.author} • #{new Intl.DateTimeFormat('en-GB', {day: '2-digit',month: 'short',year: 'numeric',}).format(new Date(post.createdAt))}
+              span #{post.authorName} • #{new Intl.DateTimeFormat('en-GB', {day: '2-digit',month: 'short',year: 'numeric',}).format(new Date(post.createdAt))}
               h3 #{post.title}
               p #{post.content}
               ul.post-tags
                 each tag in post.tags
                   li #{tag}
       else
-        p Nenhum post publicado
+        span.warning Nenhum post publicado
