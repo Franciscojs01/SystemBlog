@@ -2,36 +2,26 @@ import { Post } from '../models/Post.js';
 
 class PostRepository {
   async create(postData) {
-    const newPost = await Post.create(postData);
-
-    return newPost;
+    return await Post.create(postData);
   }
 
   async findAll() {
-    const posts = await Post.find();
-
-    return posts;
+    return await Post.find();
   }
 
   async findById(id) {
-    const post = await Post.findById(id);
-
-    return post;
+    return await Post.findById(id);
   }
 
   async update(id, postData) {
-    const updatedPost = await Post.findByIdAndUpdate(id, postData, {
+    return await Post.findByIdAndUpdate(id, postData, {
       new: true,
       runValidators: true,
     });
-
-    return updatedPost;
   }
 
   async delete(id) {
-    const result = await Post.findByIdAndDelete(id);
-
-    return result;
+    return await Post.findByIdAndDelete(id);
   }
 }
 

@@ -1,16 +1,20 @@
-import {Comment} from '../models/Comment.js';
+import { Comment } from '../models/Comment.js';
 
 class CommentRepository {
   async create(commentData) {
     return Comment.create(commentData);
   }
 
-  async findByUserId(userId) {
-    return await Comment.find({userId: userId});
-  }
-
   async findAll() {
     return await Comment.find();
+  }
+
+  async findByUserId(userId) {
+    return await Comment.find({ userId });
+  }
+
+  async findByPostId(postId) {
+    return await Comment.find({ postId });
   }
 
   async delete(id) {

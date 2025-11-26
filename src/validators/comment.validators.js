@@ -2,17 +2,25 @@ import { check, param } from 'express-validator';
 import { validationErrorHandler } from './user.validators.js';
 
 export const commentFullRules = [
-  check('content')
+  check('text')
     .notEmpty()
-    .withMessage('O conteúdo é obrigatório.')
+    .withMessage('O texto do comentário é obrigatório.')
     .isString()
-    .withMessage('O conteúdo deve ser no formato de texto.'),
+    .withMessage('O texto deve ser no formato de texto.'),
 
   validationErrorHandler,
-]
+];
+
+export const commentEmailRules = [
+  param('id').isUUID().withMessage('O ID do usuário não tem formato válido.'),
+
+  validationErrorHandler,
+];
 
 export const commentIdRules = [
-  param('id').isUUID().withMessage('O ID do comentário não tem formato válido.'),
+  param('id')
+    .isUUID()
+    .withMessage('O ID do comentário não tem formato válido.'),
 
   validationErrorHandler,
 ];

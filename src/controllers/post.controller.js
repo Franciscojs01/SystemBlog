@@ -11,7 +11,10 @@ class PostController {
 
       const newPost = await PostService.create(postData);
 
-      return res.status(201).json(newPost);
+      return res.status(201).json({
+        message: 'Post criado com sucesso!',
+        newPost,
+      });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
