@@ -14,7 +14,7 @@ html(lang="en")
         each post in posts
           .post(onclick=`window.location='/posts/${post.id}'`)
             .post-header
-              img(src="/images/1415537875.jpg", alt="chico")
+              img(src="/images/example.avif", alt="chico")
             .post-body
               span #{post.authorName} • #{new Intl.DateTimeFormat('en-GB', {day: '2-digit',month: 'short',year: 'numeric',}).format(new Date(post.createdAt))}
               h3 #{post.title}

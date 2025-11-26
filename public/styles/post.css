@@ -1,172 +1,158 @@
-/* Reset básico e Fontes */
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: #1a1a1a;
-  margin: 0;
-  padding: 40px 20px;
-  background-color: #f9f9f9;
+.post {
+  padding: 30px;
+  width: 100%;
+  max-width: 80rem;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
+  border: 1px solid #eaecf0;
 }
 
-.post-container {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-/* Tipografia do Cabeçalho */
 .post-header {
-  margin-bottom: 30px;
-  max-width: 700px; /* O texto não deve ser muito largo para leitura */
+  text-align: center;
+  max-width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .post-title {
-  font-size: 3rem;
-  line-height: 1.1;
-  font-weight: 700;
+  font-family: 'Merriweather', serif;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 400;
+  color: var(--color-text-primary);
   margin-bottom: 16px;
-  letter-spacing: -0.02em;
+  scale: 1.00001;
 }
 
-.post-subtitle {
-  font-size: 1.125rem;
-  line-height: 1.5;
-  color: #666;
-  margin: 0;
+.post-info {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-meta);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  scale: 1.00001;
 }
 
-/* Área da Imagem (Hero) */
-.post-hero {
-  position: relative; /* Essencial para o posicionamento absoluto do overlay */
-  width: 100%;
-  border-radius: 4px;
-  overflow: hidden;
-  line-height: 0; /* Remove espaços extras sob a imagem */
+.separator {
+  opacity: 0.5;
 }
 
 .post-image {
+  position: relative;
   width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;
-  min-height: 400px; /* Garante altura mesmo em telas grandes */
+  margin-top: 20px;
 }
 
-/* Overlay (Barra inferior na imagem) */
-.post-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 40px 30px 20px;
-  /* Gradiente para garantir leitura do texto branco sobre a foto */
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  color: #fff;
+.thumbnail {
+  width: 100%;
+  height: 600px;
+  border-radius: 12px;
 }
 
-.overlay-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 20px;
+.tags {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  color: #000000;
+  gap: 0.5rem;
+  list-style-type: none;
+  text-transform: capitalize;
 }
 
-/* Grupo da Esquerda (Autor/Data) */
-.meta-group {
-  display: flex;
-  gap: 40px;
+.tags li {
+  scale: 1.00001;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgb(0 0 0 / 35%);
+  border-radius: 20px;
 }
 
-.meta-item {
+.post-content {
+  margin-top: 30px;
+}
+
+.post-content p {
+  scale: 1.00001;
+  font-size: 16px;
+  white-space: pre-wrap;
+}
+
+.post-comments {
+  margin-top: 30px;
+}
+
+.post-comments h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.post-comments span {
+  margin-left: 0.5rem;
+  opacity: 0.4;
+}
+
+.post-comments ul {
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 6px;
+  list-style: none;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.1), 0 1px 2px rgba(16, 24, 40, 0.06);
+  border: 1px solid #eaecf0;
+  gap: 22px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.meta-label {
-  font-size: 0.75rem;
-  opacity: 0.8;
-  margin-bottom: 4px;
-  font-weight: 500;
-}
-
-.meta-value {
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
-/* Grupo da Direita (Botões) */
-.share-group {
+.comment {
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 
-/* Botão Copy Link */
-.btn-copy {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  backdrop-filter: blur(4px);
-  transition: background 0.2s;
-}
-
-.btn-copy:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-.btn-copy .icon {
-  font-size: 1.1em;
-}
-
-/* Ícones Sociais (Quadrados) */
-.social-icons {
-  display: flex;
-  gap: 8px;
-}
-
-.icon-box {
-  width: 36px;
-  height: 36px;
+.avatar {
+  width: 35px;
+  height: 35px;
+  margin-right: 8px;
+  background-color: #2563eb;
+  border: 4px solid #e9e9e9;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  color: white;
-  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 255, 255, 0.2) 10px,
+    rgba(255, 255, 255, 0.2) 20px
+  );
+}
+
+.comment .username {
   font-weight: bold;
-  font-size: 0.9rem;
-  transition: all 0.2s;
+  font-size: 0.9375rem;
 }
 
-.icon-box:hover {
-  background: white;
-  color: #000;
+.comment p.text {
+  margin-left: 10px;
+  font-size: 14px;
 }
 
-/* Responsividade Básica */
-@media (max-width: 600px) {
-  .post-title {
-    font-size: 2rem;
-  }
-  .overlay-content {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .meta-group {
-    width: 100%;
-    justify-content: space-between;
-    margin-bottom: 15px;
-  }
+.created {
+  margin-left: 42px;
+  position: relative;
+  opacity: 0.8;
+  font-size: 12px;
+  transform: translateY(-2px);
 }

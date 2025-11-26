@@ -12,14 +12,16 @@ export const commentFullRules = [
 ];
 
 export const commentEmailRules = [
-  param('id').isUUID().withMessage('O ID do usuário não tem formato válido.'),
+  param('id')
+    .isMongoId()
+    .withMessage('O ID do usuário não tem formato válido.'),
 
   validationErrorHandler,
 ];
 
 export const commentIdRules = [
   param('id')
-    .isUUID()
+    .isMongoId()
     .withMessage('O ID do comentário não tem formato válido.'),
 
   validationErrorHandler,

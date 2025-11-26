@@ -1,37 +1,41 @@
 doctype html
-html
+html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    title= post.title
-    link(rel="stylesheet", href="/styles/post.css")
     link(rel="stylesheet", href="/styles/global.css")
+    link(rel="stylesheet", href="/styles/post.css")
+    title Post
   body
-  header
-    article.post-container
-      div.post-header
+    header
+      h1 /posts/#{post.id}
+    .post
+      .post-header
         h1.post-title= post.title
-        p.post-subtitle= post.subtitle
+        div.post-info
+          span.author Escrito por #{post.authorName}
+          span.separator |
+          span.date #{new Intl.DateTimeFormat('en-GB', {day: '2-digit',month: 'short',year: 'numeric',}).format(new Date(post.createdAt))}
+        ul.tags
+          each tag in post.tags
+            li #{tag}
+      div.post-image
+        img.thumbnail(src=post.thumbnail, alt=post.title)
+      .post-content
+        p= post.content
+      .post-comments
+        h2 Comentários
+          span #{comments.length}
+        if comments.length
+          ul
+            each comment in comments
+              li
+                .comment
+                  .avatar
+                    div= comment.name.charAt(0)
+                  .info
+                    .username #{comment.name}
+                  p.text= comment.text
+                .created #{new Intl.DateTimeFormat('en-GB', {day: '2-digit',month: 'short',year: 'numeric',}).format(new Date(comment.createdAt))}
 
-      div.post-hero
-        img.post-image(src=post.thumbnail, alt=post.title)
 
-        //- Overlay com as informações (Autor, Data, Share)
-        div.post-overlay
-          div.overlay-content
-            div.meta-group
-              div.meta-item
-                span.meta-label Written by
-                span.meta-value= post.authorName
-              div.meta-item
-                span.meta-label Published on
-                //- span.meta-value= formatDate(post.createdAt)
-
-            div.share-group
-              button.btn-copy
-                span.icon 🔗
-                | Copy link
-              div.social-icons
-                a.icon-box(href="#") in
-                a.icon-box(href="#") f
-                a.icon-box(href="#") 🐦
