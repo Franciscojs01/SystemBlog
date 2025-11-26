@@ -1,4 +1,6 @@
 import PostService from '../services/post.service.js';
+import UserService from '../services/user.service.js';
+import CommentService from '../services/comment.service.js';
 
 class PostController {
   static async create({ body, user }, res) {
@@ -24,8 +26,19 @@ class PostController {
     try {
       const posts = await PostService.getAllPosts();
 
-      return res.status(200).json({ posts });
-      // return res.status(200).render('posts', { posts });
+      return res.status(200).render('posts', { posts });
+      // return res.status(200).json({ posts, comments });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async findAllByAuthorId({ params }, res) {
+    try {
+      const user = await UserService.getById(params.id);
+      const posts = await PostService.getAllPostsByAuthorId(params.id);
+
+      return res.status(200).render('posts-author', { user, posts });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
@@ -34,8 +47,10 @@ class PostController {
   static async findById({ params }, res) {
     try {
       const post = await PostService.getById(params.id);
+      const comments = await CommentService.getByPostId(post.id);
 
-      return res.status(200).json(post);
+      return res.status(200).render('post', { post, comments });
+      // return res.status(200).json(post);
     } catch (error) {
       const statusCode = error.message.includes('Post não encontrado.')
         ? 404

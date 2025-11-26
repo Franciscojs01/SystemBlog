@@ -1,4 +1,5 @@
 import UserService from '../services/user.service.js';
+import PostService from '../services/post.service.js';
 
 class UserController {
   static async create({ body }, res) {
@@ -24,8 +25,8 @@ class UserController {
     try {
       const users = await UserService.getAllUsers();
 
-      return res.status(200).json(users);
-      // return res.status(200).render('users', { users });
+      // return res.status(200).json(users);
+      return res.status(200).render('users', { users });
     } catch (error) {
       return res.status(500).json({
         message: 'Falha interna do servidor',
@@ -37,8 +38,10 @@ class UserController {
   static async findById({ params }, res) {
     try {
       const user = await UserService.getById(params.id);
+      const posts = await PostService.getAllPostsByAuthorId(user.id);
 
-      return res.status(200).json(user);
+      // return res.status(200).json(user);
+      return res.status(200).render('user', { user, posts });
     } catch (error) {
       if (error.message.includes('Usuário não encontrado')) {
         return res.status(400).json({ message: error.message });

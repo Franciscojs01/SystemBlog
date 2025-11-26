@@ -1,0 +1,172 @@
+/* Reset básico e Fontes */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #1a1a1a;
+  margin: 0;
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+.post-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Tipografia do Cabeçalho */
+.post-header {
+  margin-bottom: 30px;
+  max-width: 700px; /* O texto não deve ser muito largo para leitura */
+}
+
+.post-title {
+  font-size: 3rem;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.post-subtitle {
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: #666;
+  margin: 0;
+}
+
+/* Área da Imagem (Hero) */
+.post-hero {
+  position: relative; /* Essencial para o posicionamento absoluto do overlay */
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  line-height: 0; /* Remove espaços extras sob a imagem */
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  min-height: 400px; /* Garante altura mesmo em telas grandes */
+}
+
+/* Overlay (Barra inferior na imagem) */
+.post-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 30px 20px;
+  /* Gradiente para garantir leitura do texto branco sobre a foto */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  color: #fff;
+}
+
+.overlay-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Grupo da Esquerda (Autor/Data) */
+.meta-group {
+  display: flex;
+  gap: 40px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  opacity: 0.8;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.meta-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Grupo da Direita (Botões) */
+.share-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Botão Copy Link */
+.btn-copy {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s;
+}
+
+.btn-copy:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.btn-copy .icon {
+  font-size: 1.1em;
+}
+
+/* Ícones Sociais (Quadrados) */
+.social-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-box {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.icon-box:hover {
+  background: white;
+  color: #000;
+}
+
+/* Responsividade Básica */
+@media (max-width: 600px) {
+  .post-title {
+    font-size: 2rem;
+  }
+  .overlay-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .meta-group {
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+}

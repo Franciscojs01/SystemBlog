@@ -12,6 +12,10 @@ class PostService {
     return await PostRepository.findAll();
   }
 
+  static async getAllPostsByAuthorId(authorId) {
+    return await PostRepository.findAllByAuthorId(authorId);
+  }
+
   static async getById(id) {
     const post = await PostRepository.findById(id);
 

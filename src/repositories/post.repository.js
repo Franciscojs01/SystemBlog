@@ -9,6 +9,10 @@ class PostRepository {
     return await Post.find();
   }
 
+  async findAllByAuthorId(authorId) {
+    return await Post.find({ authorId });
+  }
+
   async findById(id) {
     return await Post.findById(id);
   }

@@ -92,7 +92,9 @@ export const userLoginRules = [
 ];
 
 export const userIdRules = [
-  param('id').isUUID().withMessage('O ID do usuário não tem formato válido.'),
+  param('id')
+    .isMongoId()
+    .withMessage('O ID do usuário não tem formato válido.'),
 
   validationErrorHandler,
 ];

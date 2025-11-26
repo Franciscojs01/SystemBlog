@@ -34,11 +34,6 @@ export const postFullRules = [
 ];
 
 export const postPatchRules = [
-  check('author')
-    .optional()
-    .isMongoId()
-    .withMessage('O ID do autor não tem formato válido.'),
-
   check('title')
     .optional()
     .isString()
@@ -63,7 +58,7 @@ export const postPatchRules = [
 ];
 
 export const postIdRules = [
-  param('id').isUUID().withMessage('O ID do post não tem formato válido.'),
+  param('id').isMongoId().withMessage('O ID do post não tem formato válido.'),
 
   validationErrorHandler,
 ];

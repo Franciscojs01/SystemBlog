@@ -21,9 +21,10 @@ html(lang="en")
             .col.added Adicionado em
           if users.length
             each user in users
-              .row
+              .row(onclick=`window.location='/users/${user.id}'`)
                 .col.name
-                  img.avatar(src="https://i.pravatar.cc/40?img=6")
+                  .avatar
+                    span= user.name.charAt(0)
                   .info
                     .username #{user.name}
                     .email #{user.email}

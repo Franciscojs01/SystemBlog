@@ -1,0 +1,32 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="/styles/global.css")
+    link(rel="stylesheet", href="/styles/user.css")
+    title Perfil
+  body
+    header
+      h1 /users/#{user.id}
+    .container
+      main.profile-card
+        div.cover-image
+        div.profile-content
+          div.profile-header-row
+            div.avatar-wrapper
+              div.avatar
+                span= user.name.charAt(0)
+              div.verified-badge
+                svg(width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round")
+                  polyline(points="20 6 9 17 4 12")
+            div.info-block
+              h1.user-name= user.name
+                if user.role && user.role.length
+                  div.roles-list
+                    each role in user.role
+                      span(class=`role-badge ${role}`)= role
+              a.user-link(href=`mailto:${user.email}`)
+                span= user.email
+              span.user-posts(onclick=`window.location='/posts/u/${user.id}'`) #{posts.length} posts criados
+                span.icon-external ↗

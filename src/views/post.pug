@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= post.title
+    link(rel="stylesheet", href="/styles/post.css")
+    link(rel="stylesheet", href="/styles/global.css")
+  body
+  header
+    article.post-container
+      div.post-header
+        h1.post-title= post.title
+        p.post-subtitle= post.subtitle
+
+      div.post-hero
+        img.post-image(src=post.thumbnail, alt=post.title)
+
+        //- Overlay com as informações (Autor, Data, Share)
+        div.post-overlay
+          div.overlay-content
+            div.meta-group
+              div.meta-item
+                span.meta-label Written by
+                span.meta-value= post.authorName
+              div.meta-item
+                span.meta-label Published on
+                //- span.meta-value= formatDate(post.createdAt)
+
+            div.share-group
+              button.btn-copy
+                span.icon 🔗
+                | Copy link
+              div.social-icons
+                a.icon-box(href="#") in
+                a.icon-box(href="#") f
+                a.icon-box(href="#") 🐦
