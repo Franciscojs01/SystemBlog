@@ -1,6 +1,6 @@
 import CommentRepository from '../repositories/comment.repository.js';
 import CommentResponseDTO from '../dtos/comment.dto.js';
-import UserResponseDTO from '../dtos/user.dto.js';
+import { Comment } from '../models/Comment.js';
 
 class CommentService {
   static async create(createCommentDto) {
@@ -9,13 +9,15 @@ class CommentService {
   }
 
   static async findByUser(userId) {
-    const comment = await CommentRepository.findByUserId(userId);
-    if (!comment) {
-      throw new Error('Comentário não existe');
+    const comments = await CommentRepository.findByUserId( userId );
+
+    if (!comments) {
+      throw new Error('Nenhum comentário encontrado para este usuário');
     }
 
-    return new UserResponseDTO(comment);
+    return comments.map(comment => new CommentResponseDTO(comment));
   }
+
 
   static async getAllComments() {
     return await CommentRepository.findAll();

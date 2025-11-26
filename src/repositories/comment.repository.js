@@ -6,7 +6,7 @@ class CommentRepository {
   }
 
   async findByUserId(userId) {
-    return await Comment.findOne({userId: userId});
+    return await Comment.find({userId: userId});
   }
 
   async findAll() {

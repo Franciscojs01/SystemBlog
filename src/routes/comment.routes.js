@@ -24,11 +24,10 @@ router.get('/',
   CommentController.findAll
 );
 
-router.get('/user/:id',
+router.get('/me',
   authMiddleware,
   roleMiddleware(['manager', 'author', 'viewer']),
-  commentIdRules,
-  CommentController.findByUser
+  CommentController.findMyComments
 );
 
 router.delete('/:id',

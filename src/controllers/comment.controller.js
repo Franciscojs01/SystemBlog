@@ -22,27 +22,20 @@ class CommentController {
     }
   }
 
-  static async findByUser(req, res) {
+  static async findMyComments(req, res) {
     try {
-      const { id } = req.params;
+      const userId = req.user.id;
 
-      const comment = await CommentService.findByUser(id);
+      const comments = await CommentService.findByUser(userId);
 
-      return res.status(200).json({comment});
+      return res.status(200).json({ comments });
     } catch (error) {
-      console.error('Erro ao encontrar comentário : ', error.message);
-
-      if (error.message.includes('Comentário não encontrado')) {
-        return res.status(400).json({ message: error.message });
-      }
-
-      if (error.userId === 'CastError') {
-        return res.status(400).json({  message: 'Id de comentário inválido!'});
-      }
+      console.error('Erro ao buscar comentários do usuário:', error.message);
 
       return res.status(500).json({
-        message: 'Falha interna do servidor!',
-        error: error.message});
+        message: 'Falha interna ao buscar comentários do usuário.',
+        error: error.message
+      });
     }
   }
 
