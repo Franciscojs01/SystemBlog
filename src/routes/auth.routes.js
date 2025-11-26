@@ -5,8 +5,6 @@ import userRepository from '../repositories/user.repository.js';
 
 const router = Router();
 
-const JWT_SECRET = 'sua-chave-super-secreta-e-longa-12345';
-
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -36,7 +34,9 @@ router.post('/login', async (req, res) => {
       role: user.role,
     };
 
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
 
     return res.status(200).json({ token: token });
   } catch (error) {

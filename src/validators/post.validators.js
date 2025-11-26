@@ -2,12 +2,6 @@ import { check, param } from 'express-validator';
 import { validationErrorHandler } from './user.validators.js';
 
 export const postFullRules = [
-  // check('author')
-  //   .notEmpty()
-  //   .withMessage('O nome é obrigatório.')
-  //   .isMongoId()
-  //   .withMessage('O ID do autor não tem formato válido.'),
-
   check('title')
     .notEmpty()
     .withMessage('O título é obrigatório.')
@@ -40,11 +34,6 @@ export const postFullRules = [
 ];
 
 export const postPatchRules = [
-  check('author')
-    .optional()
-    .isMongoId()
-    .withMessage('O ID do autor não tem formato válido.'),
-
   check('title')
     .optional()
     .isString()
@@ -69,7 +58,7 @@ export const postPatchRules = [
 ];
 
 export const postIdRules = [
-  param('id').isUUID().withMessage('O ID do post não tem formato válido.'),
+  param('id').isMongoId().withMessage('O ID do post não tem formato válido.'),
 
   validationErrorHandler,
 ];

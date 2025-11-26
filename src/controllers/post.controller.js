@@ -11,7 +11,10 @@ class PostController {
 
       const newPost = await PostService.create(postData);
 
-      return res.status(201).json(newPost);
+      return res.status(201).json({
+        message: 'Post criado com sucesso!',
+        newPost,
+      });
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
@@ -21,7 +24,8 @@ class PostController {
     try {
       const posts = await PostService.getAllPosts();
 
-      return res.status(200).render('posts', { posts });
+      return res.status(200).json({ posts });
+      // return res.status(200).render('posts', { posts });
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
