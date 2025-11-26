@@ -1,20 +1,22 @@
 import CommentService from '../services/comment.service.js';
 
 class CommentController {
-  static async create({body, user, params}, res) {
+  static async create({ body, user, params }, res) {
     try {
-      const createCommentDto = {
+      const commentData = {
         ...body,
+        name: user.name,
         userId: user.id,
         postId: params.id,
       };
 
-      const newComment = await CommentService.create(createCommentDto);
+      const newComment = await CommentService.create(commentData);
 
-      return res.status(201).json({message: "Comentário criado com sucesso!", newComment});
+      return res.status(201).json({
+        message: 'Comentário criado com sucesso!',
+        newComment,
+      });
     } catch (error) {
-      console.error('Erro ao criar comentário: ', error.message);
-
       return res.status(500).json({
         message: 'Falha interna do servidor ao criar comentário.',
         error: error.message,
@@ -22,58 +24,97 @@ class CommentController {
     }
   }
 
-  static async findByUser(req, res) {
+  static async findAll(req, res) {
     try {
-      const { id } = req.params;
+      const comments = await CommentService.getAllComments();
 
-      const comment = await CommentService.findByUser(id);
-
-      return res.status(200).json({comment});
+      return res.status(200).json({ comments });
     } catch (error) {
-      console.error('Erro ao encontrar comentário : ', error.message);
+      return res.status(500).json({
+        message: 'Falha interna do servidor',
+        error: error.message,
+      });
+    }
+  }
 
+  static async findByLoggedUser({ user }, res) {
+    try {
+      const comment = await CommentService.getByUserId(user.id);
+
+      return res.status(200).json(comment);
+    } catch (error) {
       if (error.message.includes('Comentário não encontrado')) {
         return res.status(400).json({ message: error.message });
       }
 
-      if (error.userId === 'CastError') {
-        return res.status(400).json({  message: 'Id de comentário inválido!'});
+      if (error.email === 'CastError') {
+        return res
+          .status(400)
+          .json({ message: 'Não há nenhum comentário ligado a este usuário.' });
       }
 
       return res.status(500).json({
         message: 'Falha interna do servidor!',
-        error: error.message});
-    }
-  }
-
-  static async findAll(req, res) {
-    try {
-      const comments = await CommentService.getAllComments();
-      return res.status(200).json('comments', {comments});
-    } catch (error) {
-      console.error('Erro ao buscar comentários: ', error.message);
-      return res.status(500).json({
-        message: 'Falha interna do servidor',
         error: error.message,
-      })
+      });
     }
   }
 
-  static async delete(req, res) {
+  static async findByUserId({ params }, res) {
     try {
-      const { id } = req.params;
+      const comment = await CommentService.getByUserId(params.id);
 
-      const deletedComment = await CommentService.delete(id);
+      return res.status(200).json(comment);
+    } catch (error) {
+      if (error.message.includes('Comentário não encontrado')) {
+        return res.status(400).json({ message: error.message });
+      }
+
+      if (error.email === 'CastError') {
+        return res
+          .status(400)
+          .json({ message: 'Não há nenhum comentário ligado a este e-mail.' });
+      }
+
+      return res.status(500).json({
+        message: 'Falha interna do servidor!',
+        error: error.message,
+      });
+    }
+  }
+
+  static async findByPostId({ params }, res) {
+    try {
+      const comment = await CommentService.getByPostId(params.id);
+
+      return res.status(200).json(comment);
+    } catch (error) {
+      if (error.message.includes('Comentário não encontrado')) {
+        return res.status(400).json({ message: error.message });
+      }
+
+      if (params.id === 'CastError') {
+        return res.status(400).json({ message: 'ID de comentário inválido.' });
+      }
+
+      return res.status(500).json({
+        message: 'Falha interna do servidor!',
+        error: error.message,
+      });
+    }
+  }
+
+  static async delete({ params }, res) {
+    try {
+      const deletedComment = await CommentService.delete(params.id);
 
       return res.status(200).json({
         message: 'Comentário deletado com sucesso.',
         deletedComment: deletedComment,
       });
     } catch (error) {
-      console.error('Error ao deletar comentário:', error.message);
-
-      if (error.userId === 'CastError') {
-        return res.status(400).json({ message: 'ID de comentário inválido.'});
+      if (params.id === 'CastError') {
+        return res.status(400).json({ message: 'ID de comentário inválido.' });
       }
 
       return res.status(500).json({
