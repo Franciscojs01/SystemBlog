@@ -36,6 +36,7 @@ router.put(
   '/:id',
   authMiddleware,
   roleMiddleware(['manager']),
+  userIdRules,
   userFullRules,
   UserController.update,
 );
@@ -45,6 +46,7 @@ router.patch(
   '/:id',
   authMiddleware,
   roleMiddleware(['manager', 'author', 'viewer']),
+  userIdRules,
   userPatchRules,
   UserController.patch,
 );
